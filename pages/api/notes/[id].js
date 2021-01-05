@@ -1,18 +1,17 @@
-import redis from '../../../libs/redis'
 import sendRes from '../../../libs/send-res-with-module-map'
 import session from '../../../libs/session'
+import supabase from '../../../libs/initSupabase'
 
 export default async (req, res) => {
-  session(req, res)
+  // @todo: add auth
+  // session(req, res)
   const id = +req.query.id
   const login = req.session.login
 
-  console.time('get item from redis')
-  const note = JSON.parse((await redis.hget('rsc:notes_2', id)) || 'null')
-  console.timeEnd('get item from redis')
+  const { data: note, error } = await supabase.from('notes').select().single()
 
   if (req.method === 'GET') {
-    return res.send(JSON.stringify(note))
+    return res.send(note)
   }
 
   if (req.method === 'DELETE') {
@@ -20,19 +19,16 @@ export default async (req, res) => {
       return res.status(403).send('Unauthorized')
     }
 
-    console.time('delete item from redis')
-    await redis.hdel('rsc:notes_2', id)
-    console.timeEnd('delete item from redis')
+    const { data: note, error } = await supabase.from('notes').delete()
 
     return sendRes(req, res, null)
   }
 
   if (req.method === 'PUT') {
-    if (!login || login !== note.created_by) {
-      return res.status(403).send('Unauthorized')
-    }
+    // if (!login || login !== note.created_by) {
+    //   return res.status(403).send('Unauthorized')
+    // }
 
-    console.time('update item from redis')
     const updated = {
       id,
       title: (req.body.title || '').slice(0, 255),
@@ -40,8 +36,11 @@ export default async (req, res) => {
       body: (req.body.body || '').slice(0, 2048),
       created_by: login,
     }
-    await redis.hset('rsc:notes_2', id, JSON.stringify(updated))
-    console.timeEnd('update item from redis')
+
+    const { data: note, error } = await supabase
+      .from('notes')
+      .update(updated)
+      .eq('id', id)
 
     return sendRes(req, res, null)
   }
