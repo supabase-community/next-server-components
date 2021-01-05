@@ -19,7 +19,6 @@
     "babel-loader": "^8.2.2",
     "date-fns": "^2.16.1",
     "excerpts": "^0.0.3",
-    "ioredis": "^4.19.4",
     "marked": "^1.2.7",
     "micro-cookie-session": "^2.0.0-beta.1",
     "next": "^10.0.4",
