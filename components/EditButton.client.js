@@ -21,11 +21,11 @@ export default function EditButton({
       disabled={isPending || disabled}
       title={title}
       onClick={() => {
-        if (login) {
-          // login needed
-          window.location = '/api/auth'
-          return
-        }
+        // if (login) {
+        //   // login needed
+        //   window.location = '/api/auth'
+        //   return
+        // }
         if (isDraft) {
           // hide the sidebar
           const sidebarToggle = document.getElementById('sidebar-toggle')

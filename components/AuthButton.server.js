@@ -3,7 +3,7 @@ import React from 'react'
 import EditButton from './EditButton.client'
 
 export default function AuthButton({ children, login, ...props }) {
-  if (login) {
+  // if (login) {
     return (
       <EditButton {...props}>
         {children}
@@ -15,7 +15,7 @@ export default function AuthButton({ children, login, ...props }) {
         />
       </EditButton>
     )
-  }
+  // }
 
   return (
     <EditButton login {...props}>

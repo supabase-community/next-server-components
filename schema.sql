@@ -39,8 +39,9 @@ create table notes (
   title text,
   body text
 );
-alter table notes enable row level security;
-create policy "Everyone can see notes." on notes for select using (true);
-create policy "Can insert own notes." on notes for insert with check (auth.uid() = id);
-create policy "Can update own notes." on notes for update using (auth.uid() = id);
+-- Enable this when security/logins is implemented
+-- alter table notes enable row level security;
+-- create policy "Everyone can see notes." on notes for select using (true);
+-- create policy "Can insert own notes." on notes for insert with check (auth.uid() = id);
+-- create policy "Can update own notes." on notes for update using (auth.uid() = id);
 
