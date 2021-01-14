@@ -1,23 +1,32 @@
 import sendRes from '../../../libs/send-res-with-module-map'
 import session from '../../../libs/session'
-import supabase from '../../../libs/initSupabase'
+import { supabase } from '../../../libs/initSupabase'
 
 export default async (req, res) => {
   // @todo: add auth
   // session(req, res)
   const id = +req.query.id
-  const login = req.session.login
+  // const login = req.session.login
 
-  const { data: note, error } = await supabase.from('notes').select().single()
+  const { data: note, error } = await supabase
+    .from('notes')
+    .select()
+    .eq('id', id)
+    .single()
+    
+  if (error) {
+    console.log('error', error)
+    return res.send('Method not allowed.')
+  }
 
   if (req.method === 'GET') {
     return res.send(note)
   }
 
   if (req.method === 'DELETE') {
-    if (!login || login !== note.created_by) {
-      return res.status(403).send('Unauthorized')
-    }
+    // if (!login || login !== note.created_by) {
+    //   return res.status(403).send('Unauthorized')
+    // }
 
     const { data: note, error } = await supabase.from('notes').delete()
 
