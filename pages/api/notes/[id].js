@@ -43,7 +43,7 @@ export default async (req, res) => {
       title: (req.body.title || '').slice(0, 255),
       updated_at: Date.now(),
       body: (req.body.body || '').slice(0, 2048),
-      created_by: login,
+      // created_by: login,
     }
 
     const { data: note, error } = await supabase
