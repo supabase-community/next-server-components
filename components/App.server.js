@@ -12,14 +12,6 @@ import NoteListSkeleton from './NoteListSkeleton'
 export default function App({ selectedId, isEditing, searchText, login }) {
   return (
     <div className="container">
-      <div className="banner">
-        <a
-          href="https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html?utm_source=vercel"
-          target="_blank"
-        >
-          Learn more →
-        </a>
-      </div>
       <div className="main">
         <input type="checkbox" className="sidebar-toggle" id="sidebar-toggle" />
         <section className="col sidebar">
