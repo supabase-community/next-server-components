@@ -48,26 +48,20 @@ export default function Note({ selectedId, isEditing, login }) {
             >
               By{' '}
               <img
-                src={`https://avatars.githubusercontent.com/${created_by}?s=40`}
+                src={login.user_metadata.avatar_url}
                 alt="User Avatar"
                 title={created_by}
                 className="avatar"
               />
               &nbsp;
-              <a
-                href={`https://github.com/${created_by}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {created_by}
-              </a>
+              {login.user_metadata.full_name}
             </div>
           ) : null}
           <div className="note-menu" role="menubar">
             <small className="note-updated-at" role="status">
               Last updated on {format(updatedAt, "d MMM yyyy 'at' h:mm bb")}
             </small>
-            {login === created_by ? (
+            {login.id === created_by ? (
               <AuthButton login={login} noteId={id}>
                 Edit
               </AuthButton>

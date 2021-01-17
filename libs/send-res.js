@@ -2,6 +2,7 @@ import { pipeToNodeWritable } from 'react-server-dom-webpack/writer.node.server'
 
 import React from 'react'
 import App from '../components/App.server'
+import { supabase } from '../libs/initSupabase'
 
 let moduleMap
 const componentRegex = /components\/.+\.js/
@@ -44,13 +45,14 @@ module.exports = async (req, res, redirectToId, moduleMap) => {
   }
   res.setHeader('X-Location', JSON.stringify(location))
 
+  const { user } = await supabase.auth.api.getUserByCookie(req)
+
   renderReactTree(
     {
       selectedId: location.selectedId,
       isEditing: location.isEditing,
       searchText: location.searchText,
-      // login: req.session.login || null,
-      login: null, // @todo: add auth
+      login: user || null,
     },
     res,
     moduleMap
