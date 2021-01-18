@@ -7,12 +7,14 @@ export default function AuthButton({ children, login, ...props }) {
     return (
       <EditButton {...props}>
         {children}
-        <img
-          src={login.user_metadata.avatar_url}
-          alt="User Avatar"
-          title={login.user_metadata.full_name}
-          className="avatar"
-        />
+        {login.user_metadata.avatar_url && (
+          <img
+            src={login.user_metadata.avatar_url}
+            alt="User Avatar"
+            title={login.user_metadata.full_name}
+            className="avatar"
+          />
+        )}
       </EditButton>
     )
   }

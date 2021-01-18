@@ -28,7 +28,7 @@ export default function Note({ selectedId, isEditing, login }) {
     }
   }
 
-  let { id, title, body, updated_at, created_by: created_by } = note
+  const { id, title, body, updated_at, created_by } = note
   const updatedAt = new Date(updated_at)
 
   if (isEditing) {
@@ -38,30 +38,11 @@ export default function Note({ selectedId, isEditing, login }) {
       <div className="note">
         <div className="note-header">
           <h1 className="note-title">{title}</h1>
-          {created_by ? (
-            <div
-              style={{
-                flex: '1 0 100%',
-                order: '-1',
-                marginTop: 10,
-              }}
-            >
-              By{' '}
-              <img
-                src={login.user_metadata.avatar_url}
-                alt="User Avatar"
-                title={created_by}
-                className="avatar"
-              />
-              &nbsp;
-              {login.user_metadata.full_name}
-            </div>
-          ) : null}
           <div className="note-menu" role="menubar">
             <small className="note-updated-at" role="status">
               Last updated on {format(updatedAt, "d MMM yyyy 'at' h:mm bb")}
             </small>
-            {login.id === created_by ? (
+            {login && login.id === created_by ? (
               <AuthButton login={login} noteId={id}>
                 Edit
               </AuthButton>
