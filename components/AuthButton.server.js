@@ -3,19 +3,19 @@ import React from 'react'
 import EditButton from './EditButton.client'
 
 export default function AuthButton({ children, login, ...props }) {
-  // if (login) {
+  if (login) {
     return (
       <EditButton {...props}>
         {children}
         <img
-          src={`https://avatars.githubusercontent.com/${login}?s=40`}
+          src={login.user_metadata.avatar_url}
           alt="User Avatar"
-          title={login}
+          title={login.user_metadata.full_name}
           className="avatar"
         />
       </EditButton>
     )
-  // }
+  }
 
   return (
     <EditButton login {...props}>

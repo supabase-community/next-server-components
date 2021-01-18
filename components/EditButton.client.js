@@ -1,6 +1,7 @@
 import React, { unstable_useTransition } from 'react'
 
 import { useLocation } from './LocationContext.client'
+import { supabase } from '../libs/initSupabase'
 
 export default function EditButton({
   login,
@@ -20,12 +21,13 @@ export default function EditButton({
       ].join(' ')}
       disabled={isPending || disabled}
       title={title}
-      onClick={() => {
-        // if (login) {
-        //   // login needed
-        //   window.location = '/api/auth'
-        //   return
-        // }
+      onClick={async () => {
+        if (login) {
+          // login needed
+          const { error } = await supabase.auth.signIn({ provider: 'github' })
+          if (error) alert(error.message)
+          return
+        }
         if (isDraft) {
           // hide the sidebar
           const sidebarToggle = document.getElementById('sidebar-toggle')

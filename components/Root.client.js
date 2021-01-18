@@ -1,10 +1,29 @@
-import { useState, Suspense } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 
 import { useServerResponse } from './Cache.client'
 import { LocationContext } from './LocationContext.client'
 
+import { supabase } from '../libs/initSupabase'
+
 export default function Root() {
+  useEffect(() => {
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        fetch('/api/auth', {
+          method: 'POST',
+          headers: new Headers({ 'Content-Type': 'application/json' }),
+          credentials: 'same-origin',
+          body: JSON.stringify({ event, session }),
+        }).then(res => res.json())
+      }
+    )
+
+    return () => {
+      authListener.unsubscribe()
+    }
+  }, [])
+
   return (
     <Suspense fallback={null}>
       <ErrorBoundary FallbackComponent={Error}>
