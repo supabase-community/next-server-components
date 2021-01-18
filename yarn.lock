@@ -429,10 +429,10 @@
     "@supabase/postgrest-js" "^0.22.0"
     "@supabase/realtime-js" "^1.0.6"
 
-"@supabase/ui@^0.6.1":
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/@supabase/ui/-/ui-0.6.1.tgz#ac4fb997df11f688caf30b62359428808a076bf4"
-  integrity sha512-E6lWiezMZxwhGE5NFzi12kHH++tSEpbWCdImPvCTZjS5GyI+w68m1dRj5P0rmVcjmyRY8jJ3oCk90S/+0mN2tQ==
+"@supabase/ui@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@supabase/ui/-/ui-0.7.0.tgz#0f558bcdce840f53a030d52d4a24a6b88960b6b0"
+  integrity sha512-WvauN/T/nGBWqGdfIG1xycFZ4V2VG3hT6BD2L+RXVKrYhnmeTKbMyLus+T0KL7k19cv+nli0C9zD7EdURWu0Lw==
   dependencies:
     lodash "^4.17.20"
     prop-types "^15.7.2"

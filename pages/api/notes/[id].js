@@ -25,7 +25,11 @@ export default async (req, res) => {
       return res.status(403).send('Unauthorized')
     }
 
-    await supabase.from('notes').delete()
+    const { error: deleteError } = await supabase
+      .from('notes')
+      .delete()
+      .eq('id', id)
+    if (deleteError) console.log('Error while deleting:', deleteError)
 
     return sendRes(req, res, null)
   }
@@ -34,17 +38,20 @@ export default async (req, res) => {
     if (!user || user.id !== note.created_by) {
       return res.status(403).send('Unauthorized')
     }
-    console.log('put id', id)
 
     const updated = {
       id,
       title: (req.body.title || '').slice(0, 255),
-      updated_at: Date.now(),
+      updated_at: new Date(),
       body: (req.body.body || '').slice(0, 2048),
       created_by: user.id,
     }
 
-    await supabase.from('notes').update(updated).eq('id', id)
+    const { error: updateError } = await supabase
+      .from('notes')
+      .update(updated)
+      .eq('id', id)
+    if (updateError) console.log('Error while updating:', updateError)
 
     return sendRes(req, res, null)
   }
