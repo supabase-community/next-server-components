@@ -9,13 +9,14 @@ import { supabase } from '../libs/initSupabase'
 export default function Root() {
   useEffect(() => {
     const { data: authListener } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        fetch('/api/auth', {
+      async (event, session) => {
+        await fetch('/api/auth', {
           method: 'POST',
           headers: new Headers({ 'Content-Type': 'application/json' }),
           credentials: 'same-origin',
           body: JSON.stringify({ event, session }),
         }).then(res => res.json())
+        if (event === 'SIGNED_IN') window.location.reload()
       }
     )
 
