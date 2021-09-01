@@ -22,7 +22,7 @@
     "date-fns": "^2.16.1",
     "excerpts": "^0.0.3",
     "marked": "^1.2.7",
-    "next": "^10.0.4",
+    "next": "^11.1.1",
     "react": "0.0.0-experimental-3310209d0",
     "react-dom": "0.0.0-experimental-3310209d0",
     "react-error-boundary": "^3.1.0",
