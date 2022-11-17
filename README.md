@@ -1,3 +1,9 @@
+# ⚠️ THIS REPO IS OUTDATED AND ARCHIVED
+
+For an up to date example of Next.js 13 Server Components, please refer to https://github.com/supabase/auth-helpers/tree/main/examples/nextjs-server-components
+
+<hr />
+
 # React Server Components in Next.js
 
 Experimental app of React Server Components with Next.js, based on [React Server Components Demo](https://github.com/reactjs/server-components-demo).  
